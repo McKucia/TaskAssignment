@@ -74,6 +74,50 @@ namespace TaskAssignment
                             Status = Status.New
                         }
                     }
+                },
+                new TaskGroup()
+                {
+                    Name = "HR",
+                    UserTasks = new List<UserTask>()
+                    {
+                        new UserTask()
+                        {
+                            Deadline = new DateTime(2022, 7, 1),
+                            Name = "Hire someone",
+                            Status = Status.InProgress
+                        },
+                        new UserTask()
+                        {
+                            Deadline = new DateTime(2022, 7, 2),
+                            Name = "Fire someone",
+                            Status = Status.InProgress
+                        },
+                        new UserTask()
+                        {
+                            Deadline = new DateTime(2022, 7, 1),
+                            Name = "Call",
+                            Status = Status.Completed
+                        },
+                        new UserTask()
+                        {
+                            Deadline = new DateTime(2022, 7, 2),
+                            Name = "Talk to someone",
+                            Status = Status.Completed
+                        }
+                    }
+                },
+                new TaskGroup()
+                {
+                    Name = "Other",
+                    UserTasks = new List<UserTask>()
+                    {
+                        new UserTask()
+                        {
+                            Deadline = new DateTime(2022, 7, 1),
+                            Name = "Coffe",
+                            Status = Status.InProgress
+                        }
+                    }
                 }
             };
 

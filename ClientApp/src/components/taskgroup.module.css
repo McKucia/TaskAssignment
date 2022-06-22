@@ -1,9 +1,61 @@
-svg {
-    transition: all 0.1s ease-in-out;
-    cursor: pointer;
-    margin: 0 7px;
+.loader {
+    border: 4px solid white;
+    border-radius: 50%;
+    border-top: 4px solid transparent;
+    width: 45px; height: 45px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
 }
 
-svg:hover {
-    transform: scale(1.1);
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
 }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.groupName {
+    font-size: 35px;
+    background: transparent;
+    text-align: center;
+    color: white;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+#addUser {
+    border-radius: 3px;
+    background: rgb(63, 68, 73);
+    border: 2px solid rgb(53, 58, 63);
+    padding: 10px 20px;
+    text-align: center;
+}
+
+#addUser h3 {
+    font-size: 20px;
+    text-align: center;
+    color: white;
+}
+
+#addUser label {
+    font-size: 15px;
+    color: white;
+}
+
+.groupNameBox {
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.groupNameBox svg { color: white; margin-bottom: 10px; }
+.groupNameBox svg:nth-child(2):hover { color: rgba(32, 134, 0, 0.93); }
+
+.GroupIcons svg:nth-child(1):hover { color: rgba(220, 0, 0, 0.93); }
+
+th, td:nth-child(4) { width: 5%; }
+td:nth-child(2), td:nth-child(3) { width: 15%; }
+td:nth-child(5) { width: 10%; }

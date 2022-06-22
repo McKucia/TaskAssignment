@@ -31,9 +31,37 @@ namespace TaskAssignment.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("character varying(25)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("TaskGroups");
+                });
+
+            modelBuilder.Entity("TaskAssignment.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("character varying(25)");
+
+                    b.Property<string>("SecondName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("character varying(25)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("TaskAssignment.Entities.UserTask", b =>
@@ -48,8 +76,8 @@ namespace TaskAssignment.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("character varying(25)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -62,6 +90,17 @@ namespace TaskAssignment.Migrations
                     b.HasIndex("TaskGroupId");
 
                     b.ToTable("UserTasks");
+                });
+
+            modelBuilder.Entity("TaskAssignment.Entities.TaskGroup", b =>
+                {
+                    b.HasOne("TaskAssignment.Entities.User", "User")
+                        .WithOne("TaskGroup")
+                        .HasForeignKey("TaskAssignment.Entities.TaskGroup", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TaskAssignment.Entities.UserTask", b =>
@@ -78,6 +117,11 @@ namespace TaskAssignment.Migrations
             modelBuilder.Entity("TaskAssignment.Entities.TaskGroup", b =>
                 {
                     b.Navigation("UserTasks");
+                });
+
+            modelBuilder.Entity("TaskAssignment.Entities.User", b =>
+                {
+                    b.Navigation("TaskGroup");
                 });
 #pragma warning restore 612, 618
         }

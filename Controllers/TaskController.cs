@@ -30,6 +30,19 @@ namespace TaskAssignment.Controllers
             
             return NotFound();
         }
+        
+        [HttpDelete("task-{id}")]
+        public ActionResult DeleteTask([FromRoute] int id)
+        {
+            var isDeleted = _service.DeleteTask(id);
+
+            if (isDeleted)
+            {
+                return NoContent();
+            }
+            
+            return NotFound();
+        }
 
         [HttpPost]
         public ActionResult CreateTaskGroup([FromBody] TaskGroup taskGroup)
@@ -43,11 +56,46 @@ namespace TaskAssignment.Controllers
 
             return Created($"/api/taskgroup/{id}", null);
         }
+        
+        [HttpPost("{id}/{name}")]
+        public ActionResult ChangeName([FromRoute] int id, [FromRoute] string name)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var isChanged = _service.ChangeName(id, name);
+
+            if (!isChanged)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+        
+        [HttpPost("{id}")]
+        public ActionResult CreateTask([FromBody] UserTask task, [FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var isCreated = _service.CreateTask(task, id);
+
+            if (isCreated)
+            {
+                return NoContent();
+            }
+
+            return NotFound();
+        }
 
         [HttpGet]
-        public ActionResult<IEnumerable<TaskGroup>> GetAll()
+        public ActionResult<IEnumerable<TaskGroup>> GetAll([FromQuery] string orderBy = "id")
         {
-            var taskGroups = _service.GetAll();
+            var taskGroups = _service.GetAll(orderBy);
 
             return Ok(taskGroups);
         }
